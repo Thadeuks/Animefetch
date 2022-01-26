@@ -9,11 +9,12 @@ import argparse
 
 init() #start colorama modules
 
-def get_sys_info(info):
+def user_info(info):
 	user = getuser() #user
 	node = platform.node()#node
 	user_node = f'{Style.RESET_ALL}{Fore.CYAN+user}{Style.RESET_ALL+"@"}{Fore.CYAN+node}{Style.RESET_ALL}'
 
+def os_information(info):
 	#OS
 	os = platform.system() #Operative system
 	os_version = platform.release() #OS version (release)
@@ -30,6 +31,7 @@ def get_sys_info(info):
 	n_hour = int(dt.hour) #Hour now
 	n_minute = int(dt.minute) #Minute now
 
+def uptime_information(info):
 	#Uptime
 	uptime_hour = n_hour-bt_hour #Uptime hour
 	uptime_minute = n_minute-bt_minute #Uptime minute
@@ -40,12 +42,15 @@ def get_sys_info(info):
 		uptime_minute = 60 - (uptime_minute*-1)
 	uptime_info = f'{Fore.CYAN + "Uptime: "}{Style.RESET_ALL+str(uptime_hour)} hrs {str(uptime_minute)} mins'
 		
+def cpu_information(info):
 	#CPU
 	cpu = platform.processor() #Processor
 	cpu_frequency = psutil.cpu_freq() #CPU frequency info
 	max_freq = f'@ {round(cpu_frequency.max/1000, 2)} Ghz' #CPU maximum frequency (Gigahertz)
 	cpu_info = f'{Fore.CYAN+ "CPU:"} {Style.RESET_ALL + cpu} {max_freq}'
 		
+
+def memory_information(info):
 	#RAM
 	memory = psutil.virtual_memory() #Memory info
 	total_memory = f'{round(memory.total / 1000000000, 2)} Gb' #Total memory (Gigabytes)
@@ -66,12 +71,12 @@ def get_sys_info(info):
 def create_themes():
 	theme_1 = f""" 
 {Fore.MAGENTA+"⢸⣿⣿⣿⣿⠃⠄⢀⣴⡾⠃⠄⠄⠄⠄⠄⠈⠺⠟⠛⠛⠛⠛⠻⢿⣿⣿⣿⣿⣶⣤⡀⠄"}
-{Fore.MAGENTA+"⢸⣿⣿⣿⡟⢀⣴⣿⡿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣷ "} {get_sys_info('user/node')} 
+{Fore.MAGENTA+"⢸⣿⣿⣿⡟⢀⣴⣿⡿⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣷ "} {user_information('user/node')} 
 {Fore.MAGENTA+"⢸⣿⣿⠟⣴⣿⡿⡟⡼⢹⣷⢲⡶⣖⣾⣶⢄⠄⠄⠄⠄⠄⢀⣼⣿⢿⣿⣿⣿⣿⣿⣿⣿ "} -----------------------------
-{Fore.MAGENTA+"⢸⣿⢫⣾⣿⡟⣾⡸⢠⡿⢳⡿⠍⣼⣿⢏⣿⣷⢄⡀⠄⢠⣾⢻⣿⣸⣿⣿⣿⣿⣿⣿⣿ "} {get_sys_info('os')}
-{Fore.MAGENTA+"⡿⣡⣿⣿⡟⡼⡁⠁⣰⠂⡾⠉⢨⣿⠃⣿⡿⠍⣾⣟⢤⣿⢇⣿⢇⣿⣿⢿⣿⣿⣿⣿⣿ "} {get_sys_info('uptime')}
-{Fore.MAGENTA+"⣱⣿⣿⡟⡐⣰⣧⡷⣿⣴⣧⣤⣼⣯⢸⡿⠁⣰⠟⢀⣼⠏⣲⠏⢸⣿⡟⣿⣿⣿⣿⣿⣿ "} {get_sys_info('cpu')}
-{Fore.MAGENTA+"⣿⣿⡟⠁⠄⠟⣁⠄⢡⣿⣿⣿⣿⣿⣿⣦⣼⢟⢀⡼⠃⡹⠃⡀⢸⡿⢸⣿⣿⣿⣿⣿⡟ "} {get_sys_info('memory')}
+{Fore.MAGENTA+"⢸⣿⢫⣾⣿⡟⣾⡸⢠⡿⢳⡿⠍⣼⣿⢏⣿⣷⢄⡀⠄⢠⣾⢻⣿⣸⣿⣿⣿⣿⣿⣿⣿ "} {os_information('os')}
+{Fore.MAGENTA+"⡿⣡⣿⣿⡟⡼⡁⠁⣰⠂⡾⠉⢨⣿⠃⣿⡿⠍⣾⣟⢤⣿⢇⣿⢇⣿⣿⢿⣿⣿⣿⣿⣿ "} {uptime_information('uptime')}
+{Fore.MAGENTA+"⣱⣿⣿⡟⡐⣰⣧⡷⣿⣴⣧⣤⣼⣯⢸⡿⠁⣰⠟⢀⣼⠏⣲⠏⢸⣿⡟⣿⣿⣿⣿⣿⣿ "} {cpu_information('cpu')}
+{Fore.MAGENTA+"⣿⣿⡟⠁⠄⠟⣁⠄⢡⣿⣿⣿⣿⣿⣿⣦⣼⢟⢀⡼⠃⡹⠃⡀⢸⡿⢸⣿⣿⣿⣿⣿⡟ "} {memory_information('memory')}
 {Fore.MAGENTA+"⣿⣿⠃⠄⢀⣾⠋⠓⢰⣿⣿⣿⣿⣿⣿⠿⣿⣿⣾⣅⢔⣕⡇⡇⡼⢁⣿⣿⣿⣿⣿⣿⢣ "}	
 {Fore.MAGENTA+"⣿⡟⠄⠄⣾⣇⠷⣢⣿⣿⣿⣿⣿⣿⣿⣭⣀⡈⠙⢿⣿⣿⡇⡧⢁⣾⣿⣿⣿⣿⣿⢏⣾  "}	
 {Fore.MAGENTA+"⣿⡇⠄⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢻⠇⠄⠄⢿⣿⡇⢡⣾⣿⣿⣿⣿⣿⣏⣼⣿ "}	
@@ -84,12 +89,12 @@ def create_themes():
 	"""
 	theme_2 = f"""
 {Fore.MAGENTA+"⠄⠄⠄⢰⣧⣼⣯⠄⣸⣠⣶⣶⣦⣾⠄⠄⠄⠄⡀⠄⢀⣿⣿⠄⠄⠄⢸⡇⠄⠄"}	
-{Fore.MAGENTA+"⠄⠄⠄⣾⣿⠿⠿⠶⠿⢿⣿⣿⣿⣿⣦⣤⣄⢀⡅⢠⣾⣛⡉⠄⠄⠄⠸⢀⣿⠄"}	{get_sys_info('user/node')}
+{Fore.MAGENTA+"⠄⠄⠄⣾⣿⠿⠿⠶⠿⢿⣿⣿⣿⣿⣦⣤⣄⢀⡅⢠⣾⣛⡉⠄⠄⠄⠸⢀⣿⠄"}	{user_information('user/node')}
 {Fore.MAGENTA+"⠄⠄⢀⡋⣡⣴⣶⣶⡀⠄⠄⠙⢿⣿⣿⣿⣿⣿⣴⣿⣿⣿⢃⣤⣄⣀⣥⣿⣿⠄"}	-------------------------------
-{Fore.MAGENTA+"⠄⠄⢸⣇⠻⣿⣿⣿⣧⣀⢀⣠⡌⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⣿⣿⣿⠄"}	{get_sys_info('os')}
-{Fore.MAGENTA+"⠄⢀⢸⣿⣷⣤⣤⣤⣬⣙⣛⢿⣿⣿⣿⣿⣿⣿⡿⣿⣿⡍⠄⠄⢀⣤⣄⠉⠋⣰"}	{get_sys_info('uptime')}
-{Fore.MAGENTA+"⠄⣼⣖⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⢇⣿⣿⡷⠶⠶⢿⣿⣿⠇⢀⣤"}	{get_sys_info('cpu')}
-{Fore.MAGENTA+"⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⡇⣿⣿⣿⣿⣿⣿⣷⣶⣥⣴⣿⡗"}	{get_sys_info('memory')}
+{Fore.MAGENTA+"⠄⠄⢸⣇⠻⣿⣿⣿⣧⣀⢀⣠⡌⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⣿⣿⣿⠄"}	{os_information('os')}
+{Fore.MAGENTA+"⠄⢀⢸⣿⣷⣤⣤⣤⣬⣙⣛⢿⣿⣿⣿⣿⣿⣿⡿⣿⣿⡍⠄⠄⢀⣤⣄⠉⠋⣰"}	{uptime_information('uptime')}
+{Fore.MAGENTA+"⠄⣼⣖⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⢇⣿⣿⡷⠶⠶⢿⣿⣿⠇⢀⣤"}	{cpu_information('cpu')}
+{Fore.MAGENTA+"⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⡇⣿⣿⣿⣿⣿⣿⣷⣶⣥⣴⣿⡗"}	{memory_information('memory')}
 {Fore.MAGENTA+"⢀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠄"}	
 {Fore.MAGENTA+"⢸⣿⣦⣌⣛⣻⣿⣿⣧⠙⠛⠛⡭⠅⠒⠦⠭⣭⡻⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠄"}	
 {Fore.MAGENTA+"⠘⣿⣿⣿⣿⣿⣿⣿⣿⡆⠄⠄⠄⠄⠄⠄⠄⠄⠹⠈⢋⣽⣿⣿⣿⣿⣵⣾⠃⠄"}	
@@ -103,10 +108,10 @@ def create_themes():
 {Fore.MAGENTA+"⡆⣐⢕⢕⢕⢕⢕⢕⢕⢕⠅⢗⢕⢕⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕"}
 {Fore.MAGENTA+"⢐⢕⢕⢕⢕⢕⣕⢕⢕⠕⠁⢕⢕⢕⢕⢕⢕⢕⢕⠅⡄⢕⢕⢕⢕⢕⢕⢕⢕⢕"}	{get_sys_info('user/node')}
 {Fore.MAGENTA+"⢕⢕⢕⢕⢕⠅⢗⢕⠕⣠⠄⣗⢕⢕⠕⢕⢕⢕⠕⢠⣿⠐⢕⢕⢕⠑⢕⢕⠵⢕"}	---------------------------
-{Fore.MAGENTA+"⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕"}	{get_sys_info('os')}
-{Fore.MAGENTA+"⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑"}	{get_sys_info('uptime')}
-{Fore.MAGENTA+"⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐"}	{get_sys_info('cpu')}
-{Fore.MAGENTA+"⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐"}	{get_sys_info('memory')}
+{Fore.MAGENTA+"⢕⢕⢕⢕⠁⢜⠕⢁⣴⣿⡇⢓⢕⢵⢐⢕⢕⠕⢁⣾⢿⣧⠑⢕⢕⠄⢑⢕⠅⢕"}	{os_information('os')}
+{Fore.MAGENTA+"⢕⢕⠵⢁⠔⢁⣤⣤⣶⣶⣶⡐⣕⢽⠐⢕⠕⣡⣾⣶⣶⣶⣤⡁⢓⢕⠄⢑⢅⢑"}	{uptime_information('uptime')}
+{Fore.MAGENTA+"⠍⣧⠄⣶⣾⣿⣿⣿⣿⣿⣿⣷⣔⢕⢄⢡⣾⣿⣿⣿⣿⣿⣿⣿⣦⡑⢕⢤⠱⢐"}	{cpu_information('cpu')}
+{Fore.MAGENTA+"⢠⢕⠅⣾⣿⠋⢿⣿⣿⣿⠉⣿⣿⣷⣦⣶⣽⣿⣿⠈⣿⣿⣿⣿⠏⢹⣷⣷⡅⢐"}	{memory_information('memory')}
 {Fore.MAGENTA+"⣔⢕⢥⢻⣿⡀⠈⠛⠛⠁⢠⣿⣿⣿⣿⣿⣿⣿⣿⡀⠈⠛⠛⠁⠄⣼⣿⣿⡇⢔"}
 {Fore.MAGENTA+"⢕⢕⢽⢸⢟⢟⢖⢖⢤⣶⡟⢻⣿⡿⠻⣿⣿⡟⢀⣿⣦⢤⢤⢔⢞⢿⢿⣿⠁⢕"}
 {Fore.MAGENTA+"⢕⢕⠅⣐⢕⢕⢕⢕⢕⣿⣿⡄⠛⢀⣦⠈⠛⢁⣼⣿⢗⢕⢕⢕⢕⢕⢕⡏⣘⢕"}
@@ -120,10 +125,10 @@ def create_themes():
 {Fore.MAGENTA+"⡿⠋⠄⣀⣀⣤⣴⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣌⠻⣿⣿"}
 {Fore.MAGENTA+"⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠹⣿"}	{get_sys_info('user/node')}
 {Fore.MAGENTA+"⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠹"}	------------------------
-{Fore.MAGENTA+"⣿⣿⡟⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡛⢿⣿⣿⣿⣮⠛⣿⣿⣿⣿⣿⣿⡆"}	{get_sys_info('os')}
-{Fore.MAGENTA+"⡟⢻⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣣⠄⡀⢬⣭⣻⣷⡌⢿⣿⣿⣿⣿⣿"}	{get_sys_info('uptime')}
-{Fore.MAGENTA+"⠃⣸⡀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⣆⢹⣿⣿⣿⡈⢿⣿⣿⣿⣿"}	{get_sys_info('cpu')}
-{Fore.MAGENTA+"⠄⢻⡇⠄⢛⣛⣻⣿⣿⣿⣿⣿⣿⣿⣿⡆⠹⣿⣆⠸⣆⠙⠛⠛⠃⠘⣿⣿⣿⣿"}	{get_sys_info('memory')}
+{Fore.MAGENTA+"⣿⣿⡟⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡛⢿⣿⣿⣿⣮⠛⣿⣿⣿⣿⣿⣿⡆"}	{os_information('os')}
+{Fore.MAGENTA+"⡟⢻⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣣⠄⡀⢬⣭⣻⣷⡌⢿⣿⣿⣿⣿⣿"}	{uptime_information('uptime')}
+{Fore.MAGENTA+"⠃⣸⡀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠈⣆⢹⣿⣿⣿⡈⢿⣿⣿⣿⣿"}	{cpu_information('cpu')}
+{Fore.MAGENTA+"⠄⢻⡇⠄⢛⣛⣻⣿⣿⣿⣿⣿⣿⣿⣿⡆⠹⣿⣆⠸⣆⠙⠛⠛⠃⠘⣿⣿⣿⣿"}	{memory_information('memory')}
 {Fore.MAGENTA+"⠄⠸⣡⠄⡈⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠁⣠⣉⣤⣴⣿⣿⠿⠿⠿⡇⢸⣿⣿⣿"}
 {Fore.MAGENTA+"⠄⡄⢿⣆⠰⡘⢿⣿⠿⢛⣉⣥⣴⣶⣿⣿⣿⣿⣻⠟⣉⣤⣶⣶⣾⣿⡄⣿⡿⢸"}
 {Fore.MAGENTA+"⠄⢰⠸⣿⠄⢳⣠⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣼⣿⣿⣿⣿⣿⣿⡇⢻⡇⢸"}
@@ -140,6 +145,7 @@ def create_themes():
 	themes.append(theme_2)
 	themes.append(theme_3)
 	themes.append(theme_4)
+
 
 	return themes #Return themes list
 
