@@ -40,7 +40,7 @@ I would really aprecciate any feedback, so please try the program if you want to
 
 ###### Made by [Thadeuks](https://github.com/Thadeuks "Thadeuks")
 **Contacts:**
-- Gmail: ass.hurtado@gmail.com
+- Gmail: ass.hurtado2008@gmail.com
 - Discord:  Thadeuks#5628
 - Twitter: [@Thadeuks](https://twitter.com/Thadeuks "@Thadeuks")
 - GitHub: [Thadeuks](https://github.com/Thadeuks "Thadeuks")
