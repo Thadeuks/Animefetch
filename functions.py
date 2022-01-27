@@ -139,3 +139,9 @@ def create_themes():
 	return themes #Return themes list
 
 
+def main(theme):
+	try:
+		themes = create_themes() #All the themes (list)
+		print(themes[int(theme)]) #Print the theme that the user selected (default: 3)
+	except:
+		print("That Animefetch theme isn't available")
