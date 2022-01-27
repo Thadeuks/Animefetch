@@ -6,6 +6,7 @@ from colorama import Fore, init, Style #docs -> https://pypi.org/project/coloram
 import time
 import datetime
 import argparse
+import functions
 
 init() #start colorama modules
 
