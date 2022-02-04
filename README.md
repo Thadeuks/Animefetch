@@ -7,7 +7,7 @@ Animefetch is an anime command-line system information tool written in python. I
 ![Animefetch](https://user-images.githubusercontent.com/93542549/151196842-3f8d6987-1895-47d5-970e-391fa6f99479.jpg)
 
 
-*Only tested in Windows 10.*
+*Only works in Windows 10.*
 
 ## Installation 
 
