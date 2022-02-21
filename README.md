@@ -17,6 +17,8 @@ Once you have python installed, you can easily install **Animefetch** just by ru
 
 `pip install Animefetch==0.0.3`
 
+*Make sure of having PyPi connected to the Python PATH*
+
 ## Usage
 Once you have Animefetch installed you can run it by the following command:
 
